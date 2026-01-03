@@ -21,11 +21,11 @@ function Navbar() {
           <ThemeSelector />
           {isSignedIn ? (
             <>
-              <Link to="/create" className="btn btn-primary btn-sm gap-1">
+           <Link to="/create" className="btn btn-primary btn-sm gap-1" aria-label="New Product">
                 <PlusIcon className="size-4" />
                 <span className="hidden sm:inline">New Product</span>
               </Link>
-              <Link to="/profile" className="btn btn-ghost btn-sm gap-1">
+             <Link to="/profile" className="btn btn-ghost btn-sm gap-1" aria-label="Profile">
                 <UserIcon className="size-4" />
                 <span className="hidden sm:inline">Profile</span>
               </Link>
