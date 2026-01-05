@@ -39,7 +39,7 @@ function HomePage() {
           <div className="relative w-full lg:w-1/2">
             <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-110 animate-pulse" />
             <img
-              src="/gadgetory.png"
+              src="/Gadgetory.png"
               alt="Creator sharing products"
               width={400}
               height={288}
