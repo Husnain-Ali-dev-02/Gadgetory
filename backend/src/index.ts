@@ -11,6 +11,7 @@ import productRoutes from "./routes/productRoutes";
 import commentRoutes from "./routes/commentRoutes";
 
 const app = express();
+const PORT = ENV.PORT ?? 8000; 
 
 // If running behind a reverse proxy (load balancer, ingress), enable trust proxy
 // so that req.protocol and req.get('host') reflect original client request.
@@ -61,6 +62,6 @@ if(ENV.NODE_ENV === "production"){
 
 }
 
-app.listen(ENV.PORT, () =>
-  console.log("Server is up and running on PORT:", ENV.PORT)
-);                                                                                             
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Server is up and running on PORT:", PORT);
+});
