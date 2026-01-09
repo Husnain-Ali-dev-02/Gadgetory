@@ -13,6 +13,7 @@ import commentRoutes from "./routes/commentRoutes";
 const app = express();
 const PORT = ENV.PORT ?? 8000;
 
+// ENV check
 console.log("🔥 ENV CHECK:", {
   DATABASE_URL: !!ENV.DATABASE_URL,
   CLERK_SECRET_KEY: !!ENV.CLERK_SECRET_KEY,
@@ -20,7 +21,7 @@ console.log("🔥 ENV CHECK:", {
   FRONTEND_URL: ENV.FRONTEND_URL,
 });
 
-// Trust proxy if behind load balancer
+// Trust proxy
 app.set("trust proxy", 1);
 
 // CORS for frontend
@@ -38,7 +39,7 @@ app.use(clerkMiddleware());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Ensure uploads directory exists (async-safe)
+// Ensure uploads directory exists
 const uploadsDir = path.join(process.cwd(), "uploads");
 fs.mkdir(uploadsDir, { recursive: true })
   .then(() => console.log("Uploads folder ready"))
@@ -65,21 +66,11 @@ app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/comments", commentRoutes);
 
-// Serve frontend in production
-if (ENV.NODE_ENV === "production") {
-  const __dirname = path.resolve();
-  const frontendDist = path.join(__dirname, "../frontend/dist");
-
-  // Serve static files
-  app.use(express.static(frontendDist));
-
-  // Catch-all route for SPA
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-}
+//  REMOVE FRONTEND SERVING
+// Since frontend is on Vercel, no need to serve it here.
+// This avoids the PathError with '*'.
 
 // Start server
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server running on PORT: ${PORT}`);
+  console.log(` Server running on PORT: ${PORT}`);
 });
